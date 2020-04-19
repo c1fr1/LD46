@@ -5,7 +5,6 @@ import engine.OpenGL.EnigWindow;
 import engine.OpenGL.VAO;
 import game.views.MainView;
 import org.joml.Matrix4f;
-import org.joml.Vector2f;
 
 import java.io.IOException;
 
@@ -43,10 +42,8 @@ public class Main {
 		loadResources();
 		
 		MainView.main = new MainView(window);
-		
-		window.toggleCursorInput();
+
 		MainView.main.runLoop();
-		window.toggleCursorInput();
 		
 		window.terminate();
 	}
@@ -55,5 +52,9 @@ public class Main {
 		source = new SoundSource();
 		Shaders.createMainShaders();
 		screenObj = new VAO(-1, -1, 2, 2);
+	}
+
+	public static boolean boundsCheck(int x, int y) {
+		return x < 20 && x > -20 && y < 20 && y > -20;
 	}
 }
