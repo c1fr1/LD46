@@ -57,6 +57,56 @@ public class Enemy {
 			}
 		}
 		if (closest < 0) {
+			if (snake.x > 18) {
+				if (xv == 1) {
+					xv = 0;
+					if (Math.random() < 0.5) {
+						yv = 1;
+					} else {
+						yv = -1;
+					}
+				} else if (xv == 0 && Math.random() < 0.5) {
+					yv = 0;
+					xv = -1;
+				}
+			} else if (snake.x < -18) {
+				if (yv == -1) {
+					xv = 0;
+					if (Math.random() < 0.5) {
+						yv = 1;
+					} else {
+						yv = -1;
+					}
+				} else if (yv == 0 && Math.random() < 0.5) {
+					xv = 0;
+					yv = 1;
+				}
+			}
+			if (snake.y > 18) {
+				if (yv == 1) {
+					yv = 0;
+					if (Math.random() < 0.5) {
+						xv = 1;
+					} else {
+						xv = -1;
+					}
+				} else if (yv == 0 && Math.random() < 0.5) {
+					xv = 0;
+					yv = -1;
+				}
+			} else if (snake.y < -18) {
+				if (yv == 1) {
+					yv = 0;
+					if (Math.random() < 0.5) {
+						xv = 1;
+					} else {
+						xv = -1;
+					}
+				} else if (yv == 0 && Math.random() < 0.5) {
+					xv = 0;
+					yv = 1;
+				}
+			}
 			return false;
 		}
 		if (closestDist == 0) {
@@ -68,11 +118,11 @@ public class Enemy {
 		}
 		if (xv != 0) {
 			if ((strawberries.get(closest).x - snake.x) / xv < 0) {
-				if (Math.random() < 0.5) {
-					xv *= -1;
-				} else {
+				if (strawberries.get(closest).y - snake.y != 0 && Math.random() < 0.5) {
 					yv = (strawberries.get(closest).y - snake.y) / Math.abs(strawberries.get(closest).y - snake.y);
 					xv = 0;
+				} else {
+					xv *= -1;
 				}
 			} else if (strawberries.get(closest).x - snake.x == 0) {
 				yv = (strawberries.get(closest).y - snake.y) / Math.abs(strawberries.get(closest).y - snake.y);
@@ -80,11 +130,11 @@ public class Enemy {
 			}
 		} else {
 			if ((strawberries.get(closest).y - snake.y) / yv < 0) {
-				if (Math.random() < 0.5) {
-					yv *= -1;
-				} else {
+				if (strawberries.get(closest).x - snake.x != 0 && Math.random() < 0.5) {
 					xv = (strawberries.get(closest).x - snake.x) / Math.abs(strawberries.get(closest).x - snake.x);
 					yv = 0;
+				} else {
+					yv *= -1;
 				}
 			} else if (strawberries.get(closest).y - snake.y == 0) {
 				xv = (strawberries.get(closest).x - snake.x) / Math.abs(strawberries.get(closest).x - snake.x);

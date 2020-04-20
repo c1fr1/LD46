@@ -261,8 +261,12 @@ public class EnigWindow {
 		});
 		
 		glfwSetMouseButtonCallback(id, (long window, int button, int action, int mods) -> {
-			if (action >= 0) {
-				mouseButtons[button] = action;
+			if (button >= 0) {
+				if (action == 0) {
+					mouseButtons[button] = 3;
+				} else {
+					mouseButtons[button] = action;
+				}
 			}
 		});
 		
@@ -389,8 +393,12 @@ public class EnigWindow {
 		});
 		
 		glfwSetMouseButtonCallback(id, (long window, int button, int action, int mods) -> {
-			if (action >= 0) {
-				mouseButtons[button] = action;
+			if (button >= 0) {
+				if (action == 0) {
+					mouseButtons[button] = 3;
+				} else {
+					mouseButtons[button] = action;
+				}
 			}
 		});
 		
@@ -514,8 +522,12 @@ public class EnigWindow {
 		});
 		
 		glfwSetMouseButtonCallback(id, (long window, int button, int action, int mods) -> {
-			if (action >= 0) {
-				mouseButtons[button] = action;
+			if (button >= 0) {
+				if (action == 0) {
+					mouseButtons[button] = 3;
+				} else {
+					mouseButtons[button] = action;
+				}
 			}
 		});
 		
@@ -748,6 +760,9 @@ public class EnigWindow {
 			if (mouseButtons[i] == 1) {
 				++mouseButtons[i];
 			}
+			if (mouseButtons[i] == 3) {
+				mouseButtons[i] = 0;
+			}
 		}
 	}
 	
@@ -859,7 +874,22 @@ public class EnigWindow {
 	public Matrix4f getSquarePerspectiveMatrix(float maxHeight) {
 		return new Matrix4f().ortho(-maxHeight/2f * getAspectRatio(),  maxHeight/2f * getAspectRatio(), -maxHeight/2f, maxHeight/2f, 0, 1);
 	}
-	
+
+	public Matrix4f getAlignedPerspectiveMatrix(float maxHeight) {
+		return new Matrix4f().ortho(0,  maxHeight * getAspectRatio(), -maxHeight/2f, maxHeight/2f, 0, 1);
+	}
+
+	public float getCursorXAligned(float maxHeight) {
+		return (1 + cursorXFloat) * maxHeight / 2f * aspectRatio;
+	}
+
+	public float getCursorXScaled(float maxHeight) {
+		return cursorXFloat * maxHeight / 2f * aspectRatio;
+	}
+	public float getCursorYScaled(float maxHeight) {
+		return cursorYFloat * maxHeight / 2f;
+	}
+
 	public void setIcon(String imagePath) {
 		
 		GLFWImage image = makeGLFWImage(imagePath);

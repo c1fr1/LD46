@@ -4,6 +4,7 @@ import engine.OpenAL.SoundSource;
 import engine.OpenGL.EnigWindow;
 import engine.OpenGL.VAO;
 import game.views.MainView;
+import game.views.MenuView;
 import org.joml.Matrix4f;
 
 import java.io.IOException;
@@ -18,9 +19,9 @@ public class Main {
 			String os = System.getProperty("os.name");
 			System.out.println("Operating System: " + os);
 			if (os.contains("mac") || os.contains("Mac")) {
-				System.out.println("in order to get a stack trace, run with\njava -jar 'trashseeking.jar' noReRun -XstartOnFirstThread");
+				System.out.println("in order to get a stack trace, run with\njava -jar 'Servant_Snake.jar' noReRun -XstartOnFirstThread");
 				try {
-					Runtime.getRuntime().exec(new String[]{"java", "-XstartOnFirstThread", "-jar", "'trashseeking.jar'", "noReRun"});
+					Runtime.getRuntime().exec(new String[]{"java", "-XstartOnFirstThread", "-jar", "'Servant_Snake.jar'", "noReRun"});
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -34,16 +35,15 @@ public class Main {
 	
 	public static void runGame() {
 		EnigWindow.runOpeningSequence = false;
-		EnigWindow window = new EnigWindow("LD45", "res/textures/icon.png");
+		EnigWindow window = new EnigWindow("Servant Snake", "res/textures/icon.png");
 		window.fps = 60;
 		
 		squareCam = window.getSquarePerspectiveMatrix(100);
-		
 		loadResources();
 		
 		MainView.main = new MainView(window);
-
-		MainView.main.runLoop();
+		MenuView.main = new MenuView(window);
+		MenuView.main.runLoop();
 		
 		window.terminate();
 	}
